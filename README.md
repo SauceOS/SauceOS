@@ -15,8 +15,11 @@ Installation
 First, boot the PC with the Gentoo Live USB then instal as folows...
 
 git clone https://github.com/sauceos/sauceos.git
+
 cd sauceos
+
 chmod +x install-sauceos.sh
+
 ./install-sauceos.sh
 
 Now, watch in real time as the entire system is (very slowly) compiled from source. After a day or so when the install is complete, reboot and wait another couple of days for the blockchains to sync. After that one time process, you are free to enjoy a fast and reliable boot into the system.
