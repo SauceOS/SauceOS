@@ -1,5 +1,7 @@
 SauceOS
 
+v1.0.0.1-ketchup
+
 The Sauce operating system is a resiliant anonymous cryptocurrency platform.
 The included application suite of completely decentralized peer-to-peer software works together to acheive the purchase, storage, exchange and spending of cyptocurrency even when common centralized services become unavailible at the least convenient time.
 
