@@ -1,37 +1,45 @@
 #!/bin/bash
-# SAUCE-OS INSTALL SCRIPT FROM BASE INSTALL AND DEFAULT CONFIGS
+
+# SAUCE-OS INSTALL FROM SOURCE SCRIPT
 
 # Intro
 
-echo "Thanks for installing SauceOS"
-echo "A key element of the security offered by Sauce, is that applications are transparently compiled from the source code of  the project's official repositories at the time of install. It  is a VERY time consuming process and may take more than a day to complete."
-echo "Even after installation, complete blockchains need downloading to increase privacy and provide resilience and that can also take another day or two."
-echo "After the one time installing and syncing, Sauce is a fast and responsive environment."
-echo "IMPORTANT: THIS WILL RESULT IN ALL EXISTING DATA BEING DELETED FROM THE COMPUTER YOU ARE INSTALLING SOURCE ON!!!"
-echo "Press enter when you're ready to continue."
+echo "Thanks for installing SauceOS from source code."
+echo "Because source code is always best."
+echo "A key element of the security offered by Sauce is that the system can be transparently and automatically compiled from the source code of the individual projects official repositories at the time of install. It is a VERY time consuming process and may take more than a day to complete. The good news is it is automated so you can go back to your main pc and check in the next day."
+echo "Even after installation, complete blockchains need downloading to increase privacy and provide network resilience and that can also take another day or more."
+echo "After the one time install and blockchains sync, Sauce is as fast and responsive environment."
+echo "Not sure you are ready to commit that amount of time yet?"
+echo "It's not too late to quit now and install the much faster binaries version from the desktop instead. Evaluate the system after it's synced and if you like it you can reinstall from source from the desktop item later."
+echo "IMPORTANT: THIS NEXT STEP WILL RESULT IN ALL EXISTING DATA BEING DELETED FROM THE COMPUTER YOU ARE INSTALLING SAUCE ON!!!"
+echo "Press enter only when you're ready to continue, or control c to exit."
 read
 
-# Configure hard disk
-echo "The following is a list of found Hard Disk devices (sda/hda):"
-ls /dev/ | grep -E [s:h]da$
-echo
-echo "Please enter the device you would like to install to:"
-read HD_DEVICE
-HDD="/dev/${HD_DEVICE}"
+# Configure Virtual Private Network
 
-# warn user last time
-echo
-echo "THIS IS YOUR LAST CHANCE TO CANCEL, Press CTRL+C to cancel this install or ENTER to continue"
+echo "A VPN is REQUIRED to keep your installation of SourceOS private. Also, while tor and i2p are used to secure the contents of network traffic, others will know you use those privacy networks, and that in of itself is an invasion of privacy."
+echo "You can download a wireguard configuration file from your own current VPN provider, or buy service from any VPN service you like."
+echo "SauceOS STRONGLY RECOMMENDS paying for your VPN with cryptocurrency. Think reputation, not cost. We highly recommend  mullvad.net - It meets all the requirements."
+echo "ACTION NEEDED"
+echo "Please open the chromium browser from the desktop icon now, and login to your VPN providers website to download your  wireguard configuration. You only want one. You can always add others later. Download it into the Downloads folder."
+echo "Next, open the file explorer (Dolphin) and in Downloads right click on the file and rename it wg-vpn.conf"
+echo "Only hit enter to continue once you have completed the above configuration steps."
+echo "HIT ENTER TO TURN ON THE WIREGUARD VPN NOW"
 read
+mkdir //etc/wireguard/
+mv //home/redcore/Downloads/wgvpn.conf //etc/wireguard/
+
+
+cd /Downloads
+cp wgvpn.conf
+
+# Format hard disk
+
+HDD="/dev/${sda}"
 echo "p" | fdisk $HDD
-echo "Please specifiy the total number of partitions:"
-read PARTS
-
-#TODO: add integer checking
 echo -n "Generating fdisk operation file"
-# Create fdisc auto file
 ((i = 1))
-while (( i < PARTS ))
+while (( i < 3 ))
 do
 echo "d" >> fdisc.in
 echo "$i" >> fdisc.in
@@ -83,7 +91,7 @@ echo "Mounting partitions"
 mount /dev/${HD_DEVICE}3 /mnt/gentoo
 mkdir /mnt/gentoo/boot
 mount /dev/${HD_DEVICE}1 /mnt/gentoo/boot
-echo "Starting STAGE 3 Install"
+echo "Installing STAGE 3"
 echo ""
 cd /mnt/gentoo
 wget https://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-desktop-openrc/stage3-amd64-desktop-openrc-20211205T170532Z.tar.xz
@@ -105,7 +113,7 @@ echo "Chrooted"
 echo "Updating portage..."
 sleep 2
 chroot /mnt/gentoo emerge --sync
-echo "Patching portage..."
+echo "Patch portage..."
 chroot /mnt/gentoo emerge portage
 echo "Portage updated, downloading kernel source..."
 sleep 2
