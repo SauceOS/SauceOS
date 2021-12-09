@@ -1,0 +1,56 @@
+#!/bin/bash
+
+echo "VPN ACTION NEEDED"
+echo ""
+echo "Please open the chromium browser from the desktop icon"
+echo "now, and login to your VPN providers website to download"
+echo "your  wireguard configuration. You only want one. You can"
+echo "always add others later. Make sure it is a wireguard conf"
+echo "file and not an OpenVPN conf file as SauceOS does not"
+echo "support OpenVPN."
+echo ""
+echo "STEP 1"
+echo "Download the file into the Downloads folder."
+echo ""
+echo "STEP 2"
+echo "Open the file explorer (Dolphin) and in the Downloads"
+echo "folder, right click on the file and rename it..."
+echo ""
+echo "wg-vpn.conf"
+echo ""
+echo "Once you have completed the above configuration steps..."
+echo ""
+echo "HIT ENTER TO TURN ON THE WIREGUARD VPN NOW"
+read
+echo ""
+echo ""
+echo "WIREGUARD VPN SETUP STARTED"
+echo ""
+echo ""
+echo "Moving Wireguard VPN configuration file wgvpn.conf"
+echo "from //home/redcore/Documents to //etc/wireguard"
+mkdir //etc/wireguard/
+mv /home/redcore/Downloads/wgvpn.conf /etc/wireguard/
+echo ""
+echo "You may replace the contents of the file with any other"
+echo "wireguard configuration downloads contents at any time in"
+echo "the installed system from the root user account."
+echo ""
+echo "Updating all packages"
+emerge --sync
+echo "Updating the package manager"
+emerge --oneshot sys-apps/portage
+echo "Installing Wireguard VPN software"
+emerge net-vpn/wireguard-modules
+emerge net-vpn/wireguard-tools
+echo "Turning on Wireguard VPN"
+wg-quick up wgvpn
+echo ""
+echo "FINISHED"
+echo ""
+echo "The Wireguard VPN should be connected now."
+echo ""
+echo "Please confirm the connection by checking above, or"
+echo "clicking on the network icon in the bottom right corner"
+echo "of the desktop."
+echo ""
