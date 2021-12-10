@@ -213,16 +213,16 @@ echo ""
 echo -c "${green}PREPARING HARD DRIVE${reset}"
 echo ""
 echo ""
-echo "p" | fdisk ${sda}
+echo "p" | fdisk ${/dev/sda}
 echo -c "${green}Creating Partition 1${reset}"
 echo "d" >> fdisc.in
-echo "${sda1}" >> fdisc.in
+echo "${dev/sda1}" >> fdisc.in
 echo -c "${green}Creating Partition 2${reset}"
 echo "d" >> fdisc.in
-echo "${sda2}" >> fdisc.in
+echo "${dev/sda2}" >> fdisc.in
 echo -c "${green}Creating Partition 3${reset}"
 echo "d" >> fdisc.in
-echo "${sda3}" >> fdisc.in
+echo "${dev/sda3}" >> fdisc.in
 echo -c "${green}Configuring partitions...${reset}"
 echo "d" 	>> fdisc.in	# Delete last sector
 echo "n" 	>> fdisc.in	# New Partiton
@@ -261,15 +261,15 @@ echo ""
 echo "${green}Partions created${reset}"
 echo ""
 echo "${green}Applying filesystem to partitions${reset}"
-mke2fs ${sda1}
-mke2fs -j ${sda3}
-mkswap ${sda2}
+mke2fs ${dev/sda1}
+mke2fs -j ${dev/sda3}
+mkswap ${dev/sda2}
 echo "${green}Activating swap partition${reset}"
-swapon ${sda2}
+swapon ${dev/sda2}
 echo "${green}Mounting partitions${reset}"
-mount ${sda3} /mnt/gentoo
+mount ${dev/sda3} /mnt/gentoo
 mkdir /mnt/gentoo/boot
-mount ${sda1} /mnt/gentoo/boot
+mount ${dev/sda1} /mnt/gentoo/boot
 echo ""
 echo ""
 echo "HARD DRIVE CONFIGURATION COMPLETE"
@@ -323,7 +323,7 @@ echo 'echo "***************************************************"' >> /mnt/gentoo
 echo 'echo ""' >> /mnt/gentoo/portage
 echo -c "${reset}"
 echo -c 'echo "Please press enter to continue"' >> /mnt/gentoo/portage
-echo -en "\007"
+beep
 echo 'read' >> /mnt/gentoo/portage
 echo 'make menuconfig' >> /mnt/gentoo/portage
 echo 'make && make modules_install' >> /mnt/gentoo/portage
