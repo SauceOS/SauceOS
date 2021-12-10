@@ -213,47 +213,33 @@ echo ""
 echo -c "${green}PREPARING HARD DRIVE${reset}"
 echo ""
 echo ""
-echo "p" | fdisk /dev/sda
-echo -c "${green}Creating Partition 1${reset}"
-echo "d" >> fdisc.in
-echo "dev/sda1" >> fdisc.in
-echo -c "${green}Creating Partition 2${reset}"
-echo "d" >> fdisc.in
-echo "dev/sda2" >> fdisc.in
-echo -c "${green}Creating Partition 3${reset}"
-echo "d" >> fdisc.in
-echo "dev/sda3" >> fdisc.in
-echo -c "${green}Configuring partitions...${reset}"
-echo "d" 	>> fdisc.in	# Delete last sector
-echo "n" 	>> fdisc.in	# New Partiton
-echo "p" 	>> fdisc.in	# Primary
-echo "1" 	>> fdisc.in	# Partion 1
-echo "" 	>> fdisc.in	# default
-echo "+32M" 	>> fdisc.in	# 32 MB size
-echo "a" 	>> fdisc.in	# Set flag
-echo "1" 	>> fdisc.in	# bootable
-echo -n "."
-echo "n" 	>> fdisc.in	# New Partion
-echo "p" 	>> fdisc.in	# Primary
-echo "2" 	>> fdisc.in	# Partion 2
-echo "" 	>> fdisc.in	# default
-echo "+512M" 	>> fdisc.in	# 512 MB size
-echo "t" 	>> fdisc.in	# Set partition type
-echo "2" 	>> fdisc.in	# Partition 2
+fdisk /dev/sda        # Start fdisk 
+echo "o" >> fdisc.in` # create a new MBR disklabel
+echo "n" >> fdisc.in	# new partiton
+echo "p" >> fdisc.in	# make linux partiton
+echo "1" >> fdisc.in	# partician sda1
+echo ""  >> fdisc.in	# default
+echo "+256M" >> fdisc.in  # size 256 MiB
+echo "n" >> fdisc.in	# new partiton
+echo "p" >> fdisc.in	# make linux partiton
+echo "2" >> fdisc.in	# partician sda2
+echo ""  >> fdisc.in	# default
+echo "+4G" >> fdisc.in  # size 256 MiB
+echo "t" 	>> fdisc.in	# mark the sda2 partition as EFI system partition
+echo "2" >> fdisc.in  # select sda2
 echo "82" 	>> fdisc.in	# 82 = SWAP
-echo -n "."
-echo "n" 	>> fdisc.in	# New Partition
-echo "p" 	>> fdisc.in	# Primary
-echo "3" 	>> fdisc.in	# Partition 2
-echo "" 	>> fdisc.in	# default
-echo "" 	>> fdisc.in	# new Line
+echo "n" >> fdisc.in	# new partiton
+echo "p" >> fdisc.in	# make linux partiton
+echo "3" >> fdisc.in	# partician sda3
+echo ""  >> fdisk.in  # default
+echo ""  >> fdisk.in  # to create a partition that takes up the rest of the remaining space on the disk
 echo -n "."
 echo "w" 	>> fdisc.in	# Write partion table
-echo "q" 	>> fdisc.in	# Quit
+echo "q" 	>> fdisc.in	# Quit fdisk
 echo "Done"
 # Execute file
 echo -c "${green}Executing fdisk script ...${reset}"
-echo
+echo ""
 fdisk sda < fdisc.in
 # clean up
 rm -f fdisc.in
@@ -261,6 +247,7 @@ echo ""
 echo "${green}Partions created${reset}"
 echo ""
 echo "${green}Applying filesystem to partitions${reset}"
+echo ""
 mke2fs dev/sda1
 mke2fs -j dev/sda3
 mkswap dev/sda2
