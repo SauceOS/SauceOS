@@ -200,11 +200,11 @@ echo -c "${blue}IMPORTANT: In the event that you are not connected to"
 echo "the VPN, we would strongly advise you to quit (ctrl+C)"
 echo "and try the installation again. Understand that your use of"
 echo "privacy networks and cryptocurrency protocols will be"
-echo "viewable on the clearnet for others to see without it."
+echo -c "viewable on the clearnet for others to see without it.${reset}"
 echo ""
 echo ""
-echo "HIT ENTER NOW TO FORMAT THE HARD DRIVE AND START"
-echo -c "        THE INSTALL OF SAUCE-OS${reset}"
+echo -c "${blue}HIT ENTER NOW TO FORMAT THE HARD DRIVE AND START${reset}"
+echo -c "${blue}        THE INSTALL OF SAUCE-OS${reset}"
 beep
 read
 echo ""
@@ -213,7 +213,7 @@ echo ""
 echo -c "${green}PREPARING HARD DRIVE${reset}"
 echo ""
 echo ""
-fdisk /dev/sda        # Start fdisk 
+echo "p" | fdisk /dev/sda        # Start fdisk 
 echo "o" >> fdisc.in` # create a new MBR disklabel
 echo "n" >> fdisc.in	# new partiton
 echo "p" >> fdisc.in	# make linux partiton
