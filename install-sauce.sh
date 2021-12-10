@@ -225,7 +225,8 @@ echo ""
 echo -c "${green}PREPARING HARD DRIVE${reset}"
 echo ""
 echo ""
-echo "p" | fdisk $HDD
+fdisk dev/sda
+echo "p"  >> fdisc.in    # list current partitions
 echo "Please specifiy the total number of current partitions on hard drive:"
 read PARTS
 echo -n "Generating fdisk operation file"
