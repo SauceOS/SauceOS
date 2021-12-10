@@ -225,7 +225,7 @@ echo ""
 echo -c "${green}PREPARING HARD DRIVE${reset}"
 echo ""
 echo ""
-echo "p" | fdisk /dev/sda        # Start fdisk 
+fdisk /dev/sda        # Start fdisk 
 echo "o" >> fdisc.in` # create a new MBR disklabel
 echo "n" >> fdisc.in	# new partiton
 echo "p" >> fdisc.in	# make linux partiton
