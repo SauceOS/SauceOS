@@ -95,7 +95,13 @@ echo ""
 echo -c "${blue}HIT ENTER TO ENABLE SOUND${reset}"
 read
 echo ""
-emerge app-misc/beep
+
+
+
+
+# emerge app-misc/beep
+
+
 echo ""
 echo -c "${green}Beep enabled.${reset}"
 echo ""
@@ -185,11 +191,17 @@ echo -c "${green}You may replace the contents of the file with any other"
 echo "wireguard configuration downloads contents at any time in"
 echo "the installed system from the root user account."
 echo ""
-echo "Installing Wireguard VPN software"
-emerge net-vpn/wireguard-modules
-emerge net-vpn/wireguard-tools
-echo "Turning on Wireguard VPN"
-wg-quick up wgvpn
+
+
+
+# echo "Installing Wireguard VPN software"
+# emerge net-vpn/wireguard-modules
+# emerge net-vpn/wireguard-tools
+# echo "Turning on Wireguard VPN"
+# wg-quick up wgvpn
+
+
+
 echo "The Wireguard VPN should be connected now."
 echo ""
 echo "Please confirm the connection by"
