@@ -213,16 +213,16 @@ echo ""
 echo -c "${green}PREPARING HARD DRIVE${reset}"
 echo ""
 echo ""
-echo "p" | fdisk /dev/${sda}
+echo "p" | fdisk ${sda}
 echo -c "${green}Creating Partition 1${reset}"
 echo "d" >> fdisc.in
-echo "/dev/${sda1}" >> fdisc.in
+echo "${sda1}" >> fdisc.in
 echo -c "${green}Creating Partition 2${reset}"
 echo "d" >> fdisc.in
-echo "/dev/${sda2}" >> fdisc.in
+echo "${sda2}" >> fdisc.in
 echo -c "${green}Creating Partition 3${reset}"
 echo "d" >> fdisc.in
-echo "/dev/${sda3}" >> fdisc.in
+echo "${sda3}" >> fdisc.in
 echo -c "${green}Configuring partitions...${reset}"
 echo "d" 	>> fdisc.in	# Delete last sector
 echo "n" 	>> fdisc.in	# New Partiton
@@ -254,22 +254,22 @@ echo "Done"
 # Execute file
 echo -c "${green}Executing fdisk script ...${reset}"
 echo
-fdisk /dev/${sda} < fdisc.in
+fdisk ${sda} < fdisc.in
 # clean up
 rm -f fdisc.in
 echo ""
 echo "${green}Partions created${reset}"
 echo ""
 echo "${green}Applying filesystem to partitions${reset}"
-mke2fs /dev/${sda1}
-mke2fs -j /dev/${sda3}
-mkswap /dev/${sda2}
+mke2fs ${sda1}
+mke2fs -j ${sda3}
+mkswap ${sda2}
 echo "${green}Activating swap partition${reset}"
-swapon /dev/${sda2}
+swapon ${sda2}
 echo "${green}Mounting partitions${reset}"
-mount /dev/${sda3} /mnt/gentoo
+mount ${sda3} /mnt/gentoo
 mkdir /mnt/gentoo/boot
-mount /dev/${sda1} /mnt/gentoo/boot
+mount ${sda1} /mnt/gentoo/boot
 echo ""
 echo ""
 echo "HARD DRIVE CONFIGURATION COMPLETE"
