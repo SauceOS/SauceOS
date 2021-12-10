@@ -225,8 +225,19 @@ echo ""
 echo -c "${green}PREPARING HARD DRIVE${reset}"
 echo ""
 echo ""
-fdisk /dev/sda        # Start fdisk 
-echo "o" >> fdisc.in` # create a new MBR disklabel
+echo "p" | fdisk $HDD
+echo "Please specifiy the total number of current partitions on hard drive:"
+read PARTS
+echo -n "Generating fdisk operation file"
+# Create fdisc auto file
+((i = 1))
+while (( i < PARTS ))
+do
+echo "d" >> fdisc.in
+echo "$i" >> fdisc.in
+((i += 1))
+done
+echo "d"    >> fdisc.in # Delete last sector
 echo "n" >> fdisc.in	# new partiton
 echo "p" >> fdisc.in	# make linux partiton
 echo "1" >> fdisc.in	# partician sda1
